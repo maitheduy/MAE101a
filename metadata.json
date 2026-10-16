@@ -1,0 +1,6 @@
+{
+  "name": "MAE101 Solvers & Study Guide",
+  "description": "Ứng dụng giải chi tiết 30 câu hỏi Ôn tập MAE101 (Calculus & Linear Algebra) với lời giải vắn tắt, các bước giải chi tiết và chế độ luyện thi không cần AI API key.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

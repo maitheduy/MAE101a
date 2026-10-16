@@ -1,0 +1,136 @@
+export interface FormulaCard {
+  category: 'Calculus' | 'Linear Algebra';
+  title: string;
+  math: string;
+  notes: string;
+  relatedQuestions: number[];
+}
+
+export const CHEATSHEET_DATA: FormulaCard[] = [
+  {
+    category: 'Calculus',
+    title: 'Tốc độ biến thiên liên quan (Related Rates)',
+    math: 'A = x^2 \\implies \\frac{dA}{dt} = 2x \\frac{dx}{dt}',
+    notes: 'Lấy đạo hàm hai vế theo thời gian $t$. Áp dụng quy tắc chuỗi cho mọi biến số biến thiên theo $t$.',
+    relatedQuestions: [1]
+  },
+  {
+    category: 'Calculus',
+    title: 'Tập xác định của hàm hợp $g \\circ f$',
+    math: 'D_{g \\circ f} = \\{x \\in D_f \\mid f(x) \\in D_g\\}',
+    notes: '1. $x$ phải thỏa mãn điều kiện tồn tại của $f(x)$.\n2. Giá trị đầu ra $f(x)$ phải nằm trong miền xác định của hàm ngoài $g(u)$.',
+    relatedQuestions: [2]
+  },
+  {
+    category: 'Calculus',
+    title: 'Tập giá trị hàm mũ $e^{u(x)}$',
+    math: 'u(x) \\ge 0 \\implies e^{u(x)} \\ge e^0 = 1',
+    notes: 'Vì $e > 1$, hàm mũ luôn dương và đồng biến. Khảo sát min/max của số mũ $u(x)$ để chặn miền giá trị.',
+    relatedQuestions: [3]
+  },
+  {
+    category: 'Calculus',
+    title: 'Tiệm cận ngang (Horizontal Asymptote)',
+    math: 'y = \\lim_{x \\to +\\infty} f(x) \\quad \\text{và} \\quad y = \\lim_{x \\to -\\infty} f(x)',
+    notes: 'Cẩn thận với căn bậc hai khi $x \\to -\\infty$: $\\sqrt{x^2} = |x| = -x$. Dẫn tới 2 đường tiệm cận ngang khác nhau.',
+    relatedQuestions: [6]
+  },
+  {
+    category: 'Calculus',
+    title: 'Xấp xỉ tuyến tính (Linear Approximation)',
+    math: 'L(x) = f(a) + f\'(a)(x - a)',
+    notes: 'Đây chính là phương trình tiếp tuyến của đồ thị hàm số tại điểm có hoành độ $x = a$. Dùng để xấp xỉ giá trị của hàm tại lân cận $a$.',
+    relatedQuestions: [7]
+  },
+  {
+    category: 'Calculus',
+    title: 'Đạo hàm ẩn (Implicit Differentiation)',
+    math: 'F(x, y) = 0 \\implies \\frac{dy}{dx} = -\\frac{F\'_x}{F\'_y}',
+    notes: 'Đạo hàm hai vế theo $x$, mỗi khi đạo hàm một biểu thức chứa $y$ thì nhân thêm $y\' = \\frac{dy}{dx}$.',
+    relatedQuestions: [8]
+  },
+  {
+    category: 'Calculus',
+    title: 'Quy tắc chuỗi (Chain Rule)',
+    math: '(g(f(x)))\' = g\'(f(x)) \\cdot f\'(x)',
+    notes: 'Đạo hàm của hàm hợp bằng đạo hàm hàm ngoài tính tại ruột nhân với đạo hàm của ruột.',
+    relatedQuestions: [9]
+  },
+  {
+    category: 'Calculus',
+    title: 'Phương pháp lặp Newton-Raphson',
+    math: 'x_{n+1} = x_n - \\frac{f(x_n)}{f\'(x_n)}',
+    notes: 'Công thức xấp xỉ nghiệm của phương trình $f(x) = 0$. $x_1$ là xấp xỉ đầu, $x_2$ là xấp xỉ thứ 2, $x_3$ là xấp xỉ thứ 3.',
+    relatedQuestions: [13]
+  },
+  {
+    category: 'Calculus',
+    title: 'Giá trị trung bình của hàm số trên $[a, b]$',
+    math: 'f_{\\text{avg}} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx',
+    notes: 'Diện tích dưới đường cong chia cho độ dài đoạn đáy $[a, b]$. Với đường thẳng thì trung bình chính là giá trị tại trung điểm.',
+    relatedQuestions: [14]
+  },
+  {
+    category: 'Calculus',
+    title: 'Định lý cơ bản giải tích (FTC - Leibniz Rule)',
+    math: '\\frac{d}{dx} \\left[ \\int_a^{u(x)} f(t) \\, dt \\right] = f(u(x)) \\cdot u\'(x)',
+    notes: 'Đạo hàm của tích phân có cận trên biến thiên bằng hàm dưới dấu tích phân tại cận trên nhân với đạo hàm cận trên.',
+    relatedQuestions: [16]
+  },
+  {
+    category: 'Calculus',
+    title: 'Quy tắc hình thang (Trapezoidal Rule)',
+    math: 'T_n = \\frac{\\Delta x}{2} \\left[ y_0 + 2(y_1 + y_2 + \\dots + y_{n-1}) + y_n \\right]',
+    notes: 'Với $\\Delta x = \\frac{b - a}{n}$. Hai giá trị đầu mút nhân 1, tất cả các giá trị bên trong nhân 2.',
+    relatedQuestions: [17]
+  },
+  {
+    category: 'Calculus',
+    title: 'Tích phân từng phần (Integration by Parts)',
+    math: '\\int u \\, dv = u v - \\int v \\, du',
+    notes: 'Thứ tự ưu tiên đặt $u$: Nhất lô ($ln$), nhì đa (đa thức $x^n$), tam lượng (lượng giác), tứ mũ ($e^x$). Có thể dùng phương pháp múa cột (D-I table).',
+    relatedQuestions: [20]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Tính chất định thức với số vô hướng $k$',
+    math: '\\det(k A) = k^n \\det(A) \\quad \\text{và} \\quad \\det(A^{-1}) = \\frac{1}{\\det(A)}',
+    notes: 'Với ma trận $A$ vuông cấp $n \\times n$. Số vô hướng khi đưa ra ngoài định thức phải mũ $n$.',
+    relatedQuestions: [23]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Định lý về số chiều không gian nghiệm (Rank-Nullity)',
+    math: '\\dim(\\text{Null}(A)) = n - \\text{rank}(A)',
+    notes: 'Số chiều không gian nghiệm của hệ phương trình thuần nhất $Ax = 0$ ($n$ ẩn) bằng số ẩn trừ đi hạng của ma trận hệ số.',
+    relatedQuestions: [25]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Khoảng cách từ điểm $M(x_0, y_0, z_0)$ đến mặt phẳng',
+    math: 'd(M, (P)) = \\frac{|A x_0 + B y_0 + C z_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}',
+    notes: 'Mặt phẳng phải được đưa về dạng tổng quát $Ax + By + Cz + D = 0$. Tử số là trị tuyệt đối khi thay tọa độ điểm.',
+    relatedQuestions: [26]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Hình chiếu vuông góc của vector (Projection)',
+    math: '\\text{proj}_v u = \\left( \\frac{u \\cdot v}{\\|v\\|^2} \\right) v',
+    notes: 'Vector hình chiếu luôn cùng phương với vector nhận hình chiếu $v$. Hệ số là tỷ số giữa tích vô hướng và bình phương độ dài của $v$.',
+    relatedQuestions: [27]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Vector riêng và Giá trị riêng (Eigenvector & Eigenvalue)',
+    math: 'A x = \\lambda x \\quad (x \\ne 0)',
+    notes: 'Vector $x$ không đổi hướng khi chịu tác động của ma trận $A$, chỉ bị kéo giãn hoặc co lại theo hệ số $\\lambda$.',
+    relatedQuestions: [28]
+  },
+  {
+    category: 'Linear Algebra',
+    title: 'Hợp thành của hai biến đổi tuyến tính',
+    math: '[T \\circ S] = [T] \\cdot [S] = A \\cdot B',
+    notes: 'Phép biến đổi tác động lên vector: $(T \\circ S)(v) = T(S(v)) = A(Bv) = (AB)v$. Chú ý thứ tự nhân ma trận từ phải sang trái.',
+    relatedQuestions: [30]
+  }
+];

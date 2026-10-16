@@ -1,0 +1,1264 @@
+export interface QuestionOption {
+  id: 'A' | 'B' | 'C' | 'D';
+  text: string;
+}
+
+export interface QuestionStep {
+  title: string;
+  content: string;
+  math?: string;
+}
+
+export interface QuestionItem {
+  id: number;
+  page: 1 | 2 | 3;
+  topic: 'Vi tích phân (Calculus)' | 'Đại số tuyến tính (Linear Algebra)';
+  subtopic: string;
+  difficulty: 'Dễ' | 'Trung bình' | 'Khá';
+  questionEn: string;
+  questionVi: string;
+  options: QuestionOption[];
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  shortSolution: string;
+  detailedSteps: QuestionStep[];
+  tip?: string;
+  formula?: string;
+}
+
+export const QUESTIONS_DATA: QuestionItem[] = [
+  // --- TRANG 1: CÂU 1 -> CÂU 10 ---
+  {
+    id: 1,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tốc độ biến thiên liên quan (Related Rates)',
+    difficulty: 'Dễ',
+    questionEn: 'The area of a square is increasing at a constant rate of $10\\text{ m}^2/\\text{s}$. At the instant when the side is $2\\text{ m}$, what is the rate of change of the side of the square?',
+    questionVi: 'Diện tích của một hình vuông đang tăng với tốc độ không đổi là $10\\text{ m}^2/\\text{s}$. Tại thời điểm cạnh hình vuông dài $2\\text{ m}$, tốc độ thay đổi của cạnh hình vuông bằng bao nhiêu?',
+    options: [
+      { id: 'A', text: '$5\\text{ m/s}$' },
+      { id: 'B', text: '$2.5\\text{ m/s}$' },
+      { id: 'C', text: '$1.25\\text{ m/s}$' },
+      { id: 'D', text: '$10\\text{ m/s}$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: 'Từ $A = x^2$, lấy đạo hàm hai vế theo thời gian: $\\frac{dA}{dt} = 2x \\frac{dx}{dt}$. Thay $x = 2$ và $\\frac{dA}{dt} = 10$, ta được $\\frac{dx}{dt} = \\frac{10}{2 \\times 2} = 2.5\\text{ m/s}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Thiết lập hệ thức giữa các biến',
+        content: 'Gọi $x(t)$ là độ dài cạnh hình vuông và $A(t)$ là diện tích tại thời điểm $t$. Công thức diện tích hình vuông:',
+        math: 'A(t) = [x(t)]^2'
+      },
+      {
+        title: 'Bước 2: Lấy đạo hàm hai vế theo thời gian $t$ (Quy tắc chuỗi)',
+        content: 'Đạo hàm hai vế theo thời gian $t$:',
+        math: '\\frac{dA}{dt} = 2x \\cdot \\frac{dx}{dt}'
+      },
+      {
+        title: 'Bước 3: Thay số liệu đã cho để tìm $\\frac{dx}{dt}$',
+        content: 'Đề bài cho $\\frac{dA}{dt} = 10\\text{ m}^2/\\text{s}$ và tại thời điểm $x = 2\\text{ m}$:',
+        math: '10 = 2(2) \\cdot \\frac{dx}{dt} = 4 \\frac{dx}{dt} \\implies \\frac{dx}{dt} = \\frac{10}{4} = 2.5\\text{ m/s}'
+      }
+    ],
+    tip: 'Nhớ dùng quy tắc chuỗi (Chain rule): đạo hàm của $x^2$ theo $t$ là $2x \\cdot \\frac{dx}{dt}$, không phải chỉ là $2x$.',
+    formula: 'A = x^2 \\implies \\frac{dA}{dt} = 2x \\frac{dx}{dt}'
+  },
+  {
+    id: 2,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tập xác định của hàm hợp (Composite Function Domain)',
+    difficulty: 'Trung bình',
+    questionEn: 'Find the domain of the composite function $g \\circ f$ if $f(x) = \\sqrt{x}$ and $g(x) = \\frac{1}{x-5}$.',
+    questionVi: 'Tìm tập xác định của hàm hợp $g \\circ f$ biết $f(x) = \\sqrt{x}$ và $g(x) = \\frac{1}{x-5}$.',
+    options: [
+      { id: 'A', text: '$[0, +\\infty)$' },
+      { id: 'B', text: '$(5, +\\infty)$' },
+      { id: 'C', text: '$[0, 5) \\cup (5, +\\infty)$' },
+      { id: 'D', text: '$[0, 25) \\cup (25, +\\infty)$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: '$(g \\circ f)(x) = g(f(x)) = \\frac{1}{\\sqrt{x} - 5}$. Điều kiện: $x \\ge 0$ (cho căn bậc hai) và $\\sqrt{x} - 5 \\ne 0 \\iff x \\ne 25$. Vậy TXĐ là $[0, 25) \\cup (25, +\\infty)$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Viết biểu thức hàm hợp $(g \\circ f)(x)$',
+        content: 'Theo định nghĩa hàm hợp $(g \\circ f)(x) = g(f(x))$:',
+        math: '(g \\circ f)(x) = g(\\sqrt{x}) = \\frac{1}{\\sqrt{x} - 5}'
+      },
+      {
+        title: 'Bước 2: Tìm các điều kiện xác định',
+        content: 'Hàm hợp xác định khi và chỉ khi $x$ thuộc TXĐ của $f$ và $f(x)$ thuộc TXĐ của $g$:\n1. Để $\\sqrt{x}$ có nghĩa: $x \\ge 0$.\n2. Để mẫu số khác 0: $\\sqrt{x} - 5 \\ne 0 \\iff \\sqrt{x} \\ne 5 \\iff x \\ne 25$.',
+        math: 'D = \\{x \\in \\mathbb{R} \\mid x \\ge 0 \\text{ và } x \\ne 25\\}'
+      },
+      {
+        title: 'Bước 3: Kết luận dưới dạng hợp các khoảng',
+        content: 'Tập xác định là:',
+        math: '[0, 25) \\cup (25, +\\infty)'
+      }
+    ],
+    tip: 'Lưu ý tránh bẫy nhầm lẫn: giải $\\sqrt{x} = 5 \\implies x = 25$ (không phải $x=5$). Nhiều bạn nhầm thành $x > 5$ dẫn tới chọn nhầm đáp án B.',
+    formula: 'D_{g \\circ f} = \\{x \\in D_f \\mid f(x) \\in D_g\\}'
+  },
+  {
+    id: 3,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tập giá trị của hàm số (Range of a Function)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the range of the function $f(x) = e^{x^2} - 1$.',
+    questionVi: 'Tìm tập giá trị của hàm số $f(x) = e^{x^2} - 1$.',
+    options: [
+      { id: 'A', text: '$[0, +\\infty)$' },
+      { id: 'B', text: '$(0, +\\infty)$' },
+      { id: 'C', text: '$[-1, +\\infty)$' },
+      { id: 'D', text: '$[1, +\\infty)$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Với mọi $x \\in \\mathbb{R}$ thì $x^2 \\ge 0 \\implies e^{x^2} \\ge e^0 = 1 \\implies e^{x^2} - 1 \\ge 0$. Khi $x \\to \\pm\\infty$, $f(x) \\to +\\infty$. Do đó tập giá trị là $[0, +\\infty)$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Đánh giá số mũ $x^2$',
+        content: 'Với mọi số thực $x$, ta luôn có $x^2 \\ge 0$. Đẳng thức xảy ra khi $x = 0$.'
+      },
+      {
+        title: 'Bước 2: Đánh giá hàm số mũ cơ số $e > 1$',
+        content: 'Vì $e > 1$, hàm $y = e^u$ đồng biến. Do đó khi $u \\ge 0$:',
+        math: 'e^{x^2} \\ge e^0 = 1'
+      },
+      {
+        title: 'Bước 3: Suy ra tập giá trị của $f(x)$',
+        content: 'Trừ cả hai vế cho 1:',
+        math: 'f(x) = e^{x^2} - 1 \\ge 1 - 1 = 0'
+      },
+      {
+        title: 'Bước 4: Xét giá trị khi $x \\to \\pm\\infty$',
+        content: 'Hàm số liên tục trên $\\mathbb{R}$ và $\\lim_{x \\to +\\infty} (e^{x^2} - 1) = +\\infty$. Giá trị nhỏ nhất là $f(0) = 0$. Vậy tập giá trị là $[0, +\\infty)$.'
+      }
+    ],
+    tip: 'Lưu ý ngoặc vuông tại $0$: $f(0) = 1 - 1 = 0$ nên giá trị $0$ thuộc tập giá trị $\\implies$ chọn $[0, +\\infty)$ chứ không phải $(0, +\\infty)$.',
+    formula: 'x^2 \\ge 0 \\implies e^{x^2} \\ge 1 \\implies e^{x^2} - 1 \\ge 0'
+  },
+  {
+    id: 4,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Quy tắc tính giới hạn (Limit Laws)',
+    difficulty: 'Dễ',
+    questionEn: 'Let $\\lim_{x \\to 1} f(x) = 4$ and $\\lim_{x \\to 1} g(x) = -2$. Find $\\lim_{x \\to 1} \\frac{f(x) + g(x)}{2g(x) + 7}$.',
+    questionVi: 'Cho $\\lim_{x \\to 1} f(x) = 4$ và $\\lim_{x \\to 1} g(x) = -2$. Tính giới hạn $\\lim_{x \\to 1} \\frac{f(x) + g(x)}{2g(x) + 7}$.',
+    options: [
+      { id: 'A', text: '$-2/3$' },
+      { id: 'B', text: '$2$' },
+      { id: 'C', text: '$2/3$' },
+      { id: 'D', text: '$6/11$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Áp dụng các định lý giới hạn tổng và thương: $\\frac{4 + (-2)}{2(-2) + 7} = \\frac{2}{-4 + 7} = \\frac{2}{3}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Áp dụng định lý giới hạn của thương',
+        content: 'Vì mẫu số có giới hạn $\\lim_{x \\to 1} (2g(x) + 7) = 2(-2) + 7 = 3 \\ne 0$, ta có thể đưa giới hạn vào tử và mẫu:',
+        math: '\\lim_{x \\to 1} \\frac{f(x) + g(x)}{2g(x) + 7} = \\frac{\\lim_{x \\to 1} f(x) + \\lim_{x \\to 1} g(x)}{2\\lim_{x \\to 1} g(x) + 7}'
+      },
+      {
+        title: 'Bước 2: Thay số và rút gọn',
+        content: 'Thay các giá trị giới hạn đã biết vào:',
+        math: '\\frac{4 + (-2)}{2(-2) + 7} = \\frac{2}{-4 + 7} = \\frac{2}{3}'
+      }
+    ],
+    tip: 'Dạng bài này chỉ cần thay trực tiếp số vào biểu thức và tính nhẩm cẩn thận dấu âm.',
+    formula: '\\lim \\frac{A}{B} = \\frac{\\lim A}{\\lim B} \\quad (\\lim B \\ne 0)'
+  },
+  {
+    id: 5,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tính liên tục của hàm từng nhánh (Continuity of Piecewise Functions)',
+    difficulty: 'Trung bình',
+    questionEn: 'Find the points at which the function $f$ is discontinuous: $f(x) = \\begin{cases} (x+1)^3 & \\text{if } x \\le 2 \\\\ (x-3)^2 & \\text{if } x > 2 \\end{cases}$',
+    questionVi: 'Tìm điểm gián đoạn của hàm số: $f(x) = \\begin{cases} (x+1)^3 & \\text{nếu } x \\le 2 \\\\ (x-3)^2 & \\text{nếu } x > 2 \\end{cases}$',
+    options: [
+      { id: 'A', text: '$x = -1$' },
+      { id: 'B', text: '$x = 2$' },
+      { id: 'C', text: '$x = 3$' },
+      { id: 'D', text: '$f$ is continuous everywhere' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: 'Tại $x=2$: Giới hạn trái $f(2) = (2+1)^3 = 27$. Giới hạn phải $\\lim_{x \\to 2^+} (x-3)^2 = (2-3)^2 = 1$. Do $27 \\ne 1$, hàm số gián đoạn tại $x = 2$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Nhận diện điểm nối cần kiểm tra',
+        content: 'Với $x < 2$, $f(x) = (x+1)^3$ là đa thức nên liên tục trên $(-\\infty, 2)$. Với $x > 2$, $f(x) = (x-3)^2$ là đa thức nên liên tục trên $(2, +\\infty)$. Ta chỉ cần kiểm tra tại điểm chuyển nhánh $x = 2$.'
+      },
+      {
+        title: 'Bước 2: Tính giới hạn trái và giá trị $f(2)$',
+        content: 'Khi $x \\le 2$:',
+        math: 'f(2) = \\lim_{x \\to 2^-} f(x) = (2 + 1)^3 = 3^3 = 27'
+      },
+      {
+        title: 'Bước 3: Tính giới hạn phải tại $x = 2$',
+        content: 'Khi $x > 2$:',
+        math: '\\lim_{x \\to 2^+} f(x) = (2 - 3)^2 = (-1)^2 = 1'
+      },
+      {
+        title: 'Bước 4: So sánh và kết luận',
+        content: 'Vì $\\lim_{x \\to 2^-} f(x) \\ne \\lim_{x \\to 2^+} f(x)$ ($27 \\ne 1$), giới hạn $\\lim_{x \\to 2} f(x)$ không tồn tại. Do đó hàm số gián đoạn (loại bước nhảy - jump discontinuity) tại $x = 2$.'
+      }
+    ],
+    tip: 'Hàm số liên tục tại $x = c$ khi và chỉ khi $\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = f(c)$.',
+    formula: '\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = f(c)'
+  },
+  {
+    id: 6,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tiệm cận ngang (Horizontal Asymptotes)',
+    difficulty: 'Trung bình',
+    questionEn: 'Find the horizontal asymptotes of the function $y = \\frac{4x+3}{\\sqrt{x^2+1}}$.',
+    questionVi: 'Tìm các đường tiệm cận ngang của đồ thị hàm số $y = \\frac{4x+3}{\\sqrt{x^2+1}}$.',
+    options: [
+      { id: 'A', text: '$y = 4$' },
+      { id: 'B', text: '$x = \\pm 4$' },
+      { id: 'C', text: '$y = 4$ and $y = -4$' },
+      { id: 'D', text: '$y = -4$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Tính giới hạn tại $\\pm\\infty$: $\\lim_{x \\to +\\infty} y = \\frac{4}{1} = 4$; khi $x \\to -\\infty$, $\\sqrt{x^2+1} = -x\\sqrt{1 + 1/x^2}$ nên $\\lim_{x \\to -\\infty} y = \\frac{4}{-1} = -4$. Vậy có 2 tiệm cận ngang: $y = 4$ và $y = -4$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Định nghĩa tiệm cận ngang',
+        content: 'Đường thẳng $y = L$ là tiệm cận ngang nếu $\\lim_{x \\to +\\infty} f(x) = L$ hoặc $\\lim_{x \\to -\\infty} f(x) = L$.'
+      },
+      {
+        title: 'Bước 2: Tìm tiệm cận khi $x \\to +\\infty$',
+        content: 'Với $x > 0$, ta có $\\sqrt{x^2+1} = x\\sqrt{1 + \\frac{1}{x^2}}$:',
+        math: '\\lim_{x \\to +\\infty} \\frac{4x + 3}{x\\sqrt{1 + \\frac{1}{x^2}}} = \\lim_{x \\to +\\infty} \\frac{4 + \\frac{3}{x}}{\\sqrt{1 + \\frac{1}{x^2}}} = \\frac{4 + 0}{\\sqrt{1 + 0}} = 4'
+      },
+      {
+        title: 'Bước 3: Tìm tiệm cận khi $x \\to -\\infty$',
+        content: 'Với $x < 0$, chú ý $\\sqrt{x^2} = |x| = -x$, do đó $\\sqrt{x^2+1} = -x\\sqrt{1 + \\frac{1}{x^2}}$:',
+        math: '\\lim_{x \\to -\\infty} \\frac{4x + 3}{-x\\sqrt{1 + \\frac{1}{x^2}}} = \\lim_{x \\to -\\infty} \\frac{4 + \\frac{3}{x}}{-\\sqrt{1 + \\frac{1}{x^2}}} = \\frac{4}{-1} = -4'
+      },
+      {
+        title: 'Bước 4: Kết luận',
+        content: 'Hàm số có hai tiệm cận ngang là $y = 4$ và $y = -4$.'
+      }
+    ],
+    tip: 'Bẫy kinh điển: khi $x \\to -\\infty$, $\\sqrt{x^2} = |x| = -x$. Rất nhiều bạn quên dấu âm dẫn tới chỉ chọn mỗi $y = 4$.',
+    formula: '\\sqrt{x^2} = |x| = \\begin{cases} x & (x \\ge 0) \\\\ -x & (x < 0) \\end{cases}'
+  },
+  {
+    id: 7,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Xấp xỉ tuyến tính (Linear Approximation)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the linear approximation of $f(x) = \\frac{1}{2x+1}$ at $x = 0$.',
+    questionVi: 'Tìm xấp xỉ tuyến tính của hàm số $f(x) = \\frac{1}{2x+1}$ tại điểm $x = 0$.',
+    options: [
+      { id: 'A', text: '$1 - 2x$' },
+      { id: 'B', text: '$1 + 2x$' },
+      { id: 'C', text: '$-2x$' },
+      { id: 'D', text: '$2x - 1$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Công thức xấp xỉ tuyến tính: $L(x) = f(a) + f\'(a)(x-a)$. Ta có $f(0) = 1$ và $f\'(x) = \\frac{-2}{(2x+1)^2} \\implies f\'(0) = -2$. Vậy $L(x) = 1 + (-2)(x-0) = 1 - 2x$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Công thức xấp xỉ tuyến tính (tiếp tuyến)',
+        content: 'Xấp xỉ tuyến tính của $f(x)$ tại $x = a$ chính là phương trình tiếp tuyến:',
+        math: 'L(x) = f(a) + f\'(a)(x - a)'
+      },
+      {
+        title: 'Bước 2: Tính giá trị của hàm số tại $a = 0$',
+        content: 'Thay $x = 0$ vào $f(x)$:',
+        math: 'f(0) = \\frac{1}{2(0) + 1} = 1'
+      },
+      {
+        title: 'Bước 3: Tính đạo hàm $f\'(x)$ và giá trị tại $x = 0$',
+        content: 'Dùng công thức đạo hàm hàm hợp $(\\frac{1}{u})\' = -\\frac{u\'}{u^2}$:',
+        math: 'f\'(x) = -\\frac{(2x+1)\'}{(2x+1)^2} = -\\frac{2}{(2x+1)^2} \\implies f\'(0) = -\\frac{2}{1^2} = -2'
+      },
+      {
+        title: 'Bước 4: Thay vào công thức xấp xỉ',
+        content: 'Thay các kết quả vừa tính vào công thức:',
+        math: 'L(x) = 1 + (-2)(x - 0) = 1 - 2x'
+      }
+    ],
+    tip: 'Khai triển Maclaurin / chuỗi Taylor cho $\\frac{1}{1+u} = 1 - u + u^2 - \\dots$. Với $u = 2x$, xấp xỉ bậc 1 ngay lập tức cho ta $1 - 2x$.',
+    formula: 'L(x) = f(a) + f\'(a)(x - a)'
+  },
+  {
+    id: 8,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Đạo hàm ẩn (Implicit Differentiation)',
+    difficulty: 'Dễ',
+    questionEn: 'Find $dy/dx$ by implicit differentiation: $5y^2 - 2x^2 = 9$.',
+    questionVi: 'Tìm đạo hàm $dy/dx$ bằng phương pháp đạo hàm ẩn: $5y^2 - 2x^2 = 9$.',
+    options: [
+      { id: 'A', text: '$\\frac{5y}{2x}$' },
+      { id: 'B', text: '$\\frac{4x}{5}$' },
+      { id: 'C', text: '$-\\frac{2x}{5y}$' },
+      { id: 'D', text: '$\\frac{2x}{5y}$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: 'Đạo hàm 2 vế theo $x$: $10y \\frac{dy}{dx} - 4x = 0 \\implies 10y \\frac{dy}{dx} = 4x \\implies \\frac{dy}{dx} = \\frac{4x}{10y} = \\frac{2x}{5y}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Lấy đạo hàm hai vế phương trình theo biến $x$',
+        content: 'Coi $y$ là hàm số theo $x$, áp dụng quy tắc chuỗi $\\frac{d}{dx}(y^2) = 2y \\frac{dy}{dx}$:',
+        math: '\\frac{d}{dx}(5y^2 - 2x^2) = \\frac{d}{dx}(9)'
+      },
+      {
+        title: 'Bước 2: Thực hiện phép lấy đạo hàm',
+        content: 'Tính đạo hàm từng số hạng:',
+        math: '5 \\cdot (2y \\frac{dy}{dx}) - 2 \\cdot (2x) = 0 \\iff 10y \\frac{dy}{dx} - 4x = 0'
+      },
+      {
+        title: 'Bước 3: Giải ra $\\frac{dy}{dx}$',
+        content: 'Chuyển vế và rút gọn:',
+        math: '10y \\frac{dy}{dx} = 4x \\implies \\frac{dy}{dx} = \\frac{4x}{10y} = \\frac{2x}{5y}'
+      }
+    ],
+    tip: 'Phương pháp đạo hàm ẩn nhanh: nếu $F(x, y) = 0$, ta có $\\frac{dy}{dx} = -\\frac{F\'_x}{F\'_y} = -\\frac{-4x}{10y} = \\frac{2x}{5y}$.',
+    formula: '\\frac{dy}{dx} = -\\frac{F\'_x}{F\'_y}'
+  },
+  {
+    id: 9,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Quy tắc chuỗi qua bảng số liệu (Chain Rule with Table)',
+    difficulty: 'Trung bình',
+    questionEn: 'A table of values for $f, g, f\', g\'$ is given:\n' +
+      '| x | f(x) | g(x) | f\'(x) | g\'(x) |\n' +
+      '|---|---|---|---|---|\n' +
+      '| 0 | 1 | 2 | 3 | -1 |\n' +
+      '| 1 | 2 | 0 | -2 | 5 |\n' +
+      '| 2 | 0 | 3 | 4 | 2 |\n' +
+      'Find $h\'(0)$ if $h(x) = g(f(x))$.',
+    questionVi: 'Cho bảng giá trị của các hàm số $f, g$ và các đạo hàm $f\', g\'$ như trên. Tìm $h\'(0)$ biết $h(x) = g(f(x))$.',
+    options: [
+      { id: 'A', text: '$3$' },
+      { id: 'B', text: '$-3$' },
+      { id: 'C', text: '$15$' },
+      { id: 'D', text: '$10$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Theo quy tắc chuỗi: $h\'(x) = g\'(f(x)) \\cdot f\'(x)$. Tại $x = 0$: $f(0) = 1, f\'(0) = 3$. Tra tiếp $g\'(1) = 5$. Vậy $h\'(0) = g\'(1) \\cdot f\'(0) = 5 \\times 3 = 15$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Viết công thức đạo hàm hàm hợp (Chain Rule)',
+        content: 'Với $h(x) = g(f(x))$, đạo hàm cấp 1 được tính bằng:',
+        math: 'h\'(x) = g\'(f(x)) \\cdot f\'(x)'
+      },
+      {
+        title: 'Bước 2: Thay $x = 0$',
+        content: 'Biểu thức cần tính trở thành:',
+        math: 'h\'(0) = g\'(f(0)) \\cdot f\'(0)'
+      },
+      {
+        title: 'Bước 3: Tra cứu các giá trị từ bảng tại dòng $x = 0$',
+        content: 'Nhìn vào hàng $x = 0$:\n- $f(0) = 1$\n- $f\'(0) = 3$'
+      },
+      {
+        title: 'Bước 4: Tra cứu giá trị của $g\'$ tại giá trị bên trong $f(0) = 1$',
+        content: 'Vì $f(0) = 1$, ta cần tìm $g\'(1)$. Nhìn vào hàng $x = 1$:\n- $g\'(1) = 5$'
+      },
+      {
+        title: 'Bước 5: Hoàn tất phép tính',
+        content: 'Nhân hai kết quả lại:',
+        math: 'h\'(0) = g\'(1) \\cdot f\'(0) = 5 \\cdot 3 = 15'
+      }
+    ],
+    tip: 'Lỗi thường gặp: lấy nhầm $g\'(0) \\cdot f\'(0) = (-1)(3) = -3$ (sai vì bên trong $g\'$ là $f(0)=1$, chứ không phải $0$).',
+    formula: '(g(f(x)))\' = g\'(f(x)) \\cdot f\'(x)'
+  },
+  {
+    id: 10,
+    page: 1,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tiếp tuyến nằm ngang (Horizontal Tangent)',
+    difficulty: 'Dễ',
+    questionEn: 'For what values of $x$ does the graph of $f(x) = x^3 + 3x^2 - 24x + 5$ have a horizontal tangent?',
+    questionVi: 'Đồ thị hàm số $f(x) = x^3 + 3x^2 - 24x + 5$ có tiếp tuyến nằm ngang tại các giá trị nào của $x$?',
+    options: [
+      { id: 'A', text: '$x = -2, x = 4$' },
+      { id: 'B', text: '$x = 2, x = -4$' },
+      { id: 'C', text: '$x = 2\\text{ only}$' },
+      { id: 'D', text: '$x = \\pm 2\\sqrt{2}$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: 'Tiếp tuyến nằm ngang khi hệ số góc $f\'(x) = 0$. $f\'(x) = 3x^2 + 6x - 24 = 3(x^2 + 2x - 8) = 3(x+4)(x-2) = 0 \\iff x = 2$ hoặc $x = -4$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Điều kiện để có tiếp tuyến nằm ngang',
+        content: 'Tiếp tuyến có phương trình song song hoặc trùng với trục hoành, tức hệ số góc bằng 0:',
+        math: 'f\'(x) = 0'
+      },
+      {
+        title: 'Bước 2: Tính đạo hàm $f\'(x)$',
+        content: 'Lấy đạo hàm của hàm đa thức bậc 3:',
+        math: 'f\'(x) = 3x^2 + 6x - 24'
+      },
+      {
+        title: 'Bước 3: Giải phương trình bậc hai $f\'(x) = 0$',
+        content: 'Chia cả hai vế cho 3 và phân tích thành nhân tử:',
+        math: 'x^2 + 2x - 8 = 0 \\iff (x + 4)(x - 2) = 0'
+      },
+      {
+        title: 'Bước 4: Kết luận nghiệm',
+        content: 'Nghiệm của phương trình là:',
+        math: 'x = 2 \\quad \\text{hoặc} \\quad x = -4'
+      }
+    ],
+    tip: 'Phương trình bậc 2 có thể giải nhanh bằng bấm máy tính Mode 5 3 (hoặc Menu 9 2 2): hệ số $3, 6, -24$.',
+    formula: '\\text{Tiếp tuyến ngang} \\iff f\'(x) = 0'
+  },
+
+  // --- TRANG 2: CÂU 11 -> CÂU 20 ---
+  {
+    id: 11,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Cực trị tương đối (Relative Extrema)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the relative extrema, if they exist, of the function $f(x) = 3x^2 - 12x + 7$.',
+    questionVi: 'Tìm cực trị tương đối (nếu có) của hàm số $f(x) = 3x^2 - 12x + 7$.',
+    options: [
+      { id: 'A', text: 'Relative maximum at $(2, -5)$, no relative minimum' },
+      { id: 'B', text: 'Relative minimum at $(-2, 43)$, no relative maximum' },
+      { id: 'C', text: 'Relative minimum at $(2, 7)$, no relative maximum' },
+      { id: 'D', text: 'Relative minimum at $(2, -5)$, no relative maximum' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: '$f\'(x) = 6x - 12 = 0 \\implies x = 2$. Do $f\'\'(x) = 6 > 0$ (hoặc parabol có $a=3>0$ bề lõm quay lên) nên tại $x=2$ là cực tiểu tương đối. Giá trị $f(2) = 3(4) - 12(2) + 7 = -5$. Điểm cực tiểu là $(2, -5)$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tìm điểm tới hạn (Critical Point)',
+        content: 'Tính đạo hàm cấp 1 và giải phương trình $f\'(x) = 0$:',
+        math: 'f\'(x) = 6x - 12 = 0 \\iff 6x = 12 \\iff x = 2'
+      },
+      {
+        title: 'Bước 2: Kiểm tra tính chất cực trị bằng đạo hàm cấp 2',
+        content: 'Đạo hàm cấp 2 là:',
+        math: 'f\'\'(x) = 6 > 0'
+      },
+      {
+        title: 'Bước 3: Kết luận loại cực trị',
+        content: 'Vì $f\'\'(2) = 6 > 0$, hàm số đạt cực tiểu tương đối (relative minimum) tại $x = 2$, và không có cực đại tương đối.'
+      },
+      {
+        title: 'Bước 4: Tính tung độ $y = f(2)$',
+        content: 'Thay $x = 2$ vào hàm số ban đầu:',
+        math: 'f(2) = 3(2)^2 - 12(2) + 7 = 12 - 24 + 7 = -5'
+      },
+      {
+        title: 'Bước 5: Kết luận điểm cực trị',
+        content: 'Điểm cực tiểu tương đối là $(2, -5)$, không có cực đại tương đối.'
+      }
+    ],
+    tip: 'Đồ thị hàm bậc hai $y = ax^2 + bx + c$ với $a > 0$ luôn là một parabol ngửa, đỉnh chính là điểm cực tiểu duy nhất: $x_v = -b/(2a) = 12/6 = 2$.',
+    formula: 'x = -\\frac{b}{2a}, \\quad f\'\'(x) > 0 \\implies \\text{Cực tiểu}'
+  },
+  {
+    id: 12,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tối ưu khoảng cách / Hình học giải tích (Closest Point to Origin)',
+    difficulty: 'Trung bình',
+    questionEn: 'Find the point on the line $x + 3y - 10 = 0$ that is closest to the origin.',
+    questionVi: 'Tìm điểm trên đường thẳng $x + 3y - 10 = 0$ gần gốc tọa độ nhất.',
+    options: [
+      { id: 'A', text: '$(1, 3)$' },
+      { id: 'B', text: '$(3, 1)$' },
+      { id: 'C', text: '$(10, 0)$' },
+      { id: 'D', text: '$(4, 2)$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Điểm gần gốc tọa độ nhất chính là hình chiếu vuông góc của gốc tọa độ $O(0,0)$ lên đường thẳng. Đường vuông góc có dạng $3x - y = 0 \\implies y = 3x$. Thế vào: $x + 3(3x) - 10 = 0 \\implies 10x = 10 \\implies x = 1, y = 3$. Điểm đó là $(1, 3)$.',
+    detailedSteps: [
+      {
+        title: 'Cách 1: Hình học - Hình chiếu vuông góc từ $O(0,0)$',
+        content: 'Đường thẳng có vector pháp tuyến $\\vec{n} = (1, 3)$. Đường thẳng vuông góc đi qua $O(0,0)$ nhận vector chỉ phương $\\vec{u} = (1, 3)$, phương trình tham số:',
+        math: 'x = t, \\quad y = 3t'
+      },
+      {
+        title: 'Bước 2: Tìm giao điểm',
+        content: 'Thay $x = t$ và $y = 3t$ vào phương trình đường thẳng $x + 3y - 10 = 0$:',
+        math: 't + 3(3t) - 10 = 0 \\iff 10t = 10 \\iff t = 1'
+      },
+      {
+        title: 'Bước 3: Tọa độ điểm cần tìm',
+        content: 'Với $t = 1$, ta có điểm $(1, 3)$.',
+        math: 'x = 1, \\quad y = 3(1) = 3'
+      },
+      {
+        title: 'Cách 2: Giải tích vi phân (Tối ưu hóa cực trị)',
+        content: 'Bình phương khoảng cách từ điểm $(x, y)$ trên đường thẳng tới gốc tọa độ là $D = x^2 + y^2$. Từ phương trình đường thẳng $x = 10 - 3y$:\n$$D(y) = (10 - 3y)^2 + y^2 = 10y^2 - 60y + 100$$\nLấy đạo hàm: $D\'(y) = 20y - 60 = 0 \\implies y = 3$. Khi đó $x = 10 - 3(3) = 1$.'
+      }
+    ],
+    tip: 'Có thể thử nhanh 4 đáp án: Cả A, B, C, D điểm nào thuộc đường thẳng? Điểm A: $1 + 3(3) - 10 = 0$ (thỏa mãn). Khoảng cách $d = \\sqrt{1^2 + 3^2} = \\sqrt{10} \\approx 3.16$. Điểm C: $10+0-10=0$, $d = 10$. Điểm D: $4+6-10=0$, $d = \\sqrt{4^2+2^2} = \\sqrt{20} \\approx 4.47$. Vậy $(1, 3)$ gần nhất!',
+    formula: 'd = \\sqrt{x^2 + y^2}, \\quad \\vec{n} = (A, B)'
+  },
+  {
+    id: 13,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Phương pháp lặp Newton (Newton\'s Method)',
+    difficulty: 'Khá',
+    questionEn: 'Use Newton\'s method with the specified initial approximation $x_1$ to find $x_3$, the third approximation to the root of the given equation: $x^3 - x - 3 = 0, x_1 = 2$. (Give your answer to 4 decimal places.)',
+    questionVi: 'Sử dụng phương pháp Newton với xấp xỉ ban đầu $x_1 = 2$ để tìm $x_3$, xấp xỉ thứ ba cho nghiệm của phương trình $x^3 - x - 3 = 0$. (Làm tròn 4 chữ số thập phân).',
+    options: [
+      { id: 'A', text: '$1.7273$' },
+      { id: 'B', text: '$1.6700$' },
+      { id: 'C', text: '$1.6737$' },
+      { id: 'D', text: '$1.6720$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Công thức Newton: $x_{n+1} = x_n - \\frac{f(x_n)}{f\'(x_n)}$ với $f(x) = x^3 - x - 3, f\'(x) = 3x^2 - 1$. Với $x_1 = 2 \\implies x_2 = 2 - \\frac{3}{11} = \\frac{19}{11} \\approx 1.72727$. Tiếp tục tính $x_3 = \\frac{19}{11} - \\frac{f(19/11)}{f\'(19/11)} \\approx 1.6737$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Thiết lập hàm và đạo hàm',
+        content: 'Cho phương trình $f(x) = x^3 - x - 3 = 0$. Đạo hàm:',
+        math: 'f\'(x) = 3x^2 - 1'
+      },
+      {
+        title: 'Bước 2: Công thức lặp Newton-Raphson',
+        content: 'Công thức lặp:',
+        math: 'x_{n+1} = x_n - \\frac{x_n^3 - x_n - 3}{3x_n^2 - 1}'
+      },
+      {
+        title: 'Bước 3: Tính bước 1 tìm $x_2$ (với $x_1 = 2$)',
+        content: '- $f(2) = 2^3 - 2 - 3 = 8 - 5 = 3$\n- $f\'(2) = 3(2^2) - 1 = 12 - 1 = 11$\n',
+        math: 'x_2 = 2 - \\frac{3}{11} = \\frac{19}{11} \\approx 1.727273'
+      },
+      {
+        title: 'Bước 4: Tính bước 2 tìm $x_3$ (từ $x_2 = \\frac{19}{11}$)',
+        content: 'Thay $x_2$ vào hàm $f$ và $f\'$:\n- $f(19/11) = (19/11)^3 - 19/11 - 3 = \\frac{6859}{1331} - \\frac{19}{11} - 3 = \\frac{567}{1331} \\approx 0.425995$\n- $f\'(19/11) = 3(19/11)^2 - 1 = 3(\\frac{361}{121}) - 1 = \\frac{962}{121} \\approx 7.950413$',
+        math: 'x_3 = \\frac{19}{11} - \\frac{567/1331}{962/121} = \\frac{19}{11} - \\frac{567}{10582} = \\frac{17711}{10582} \\approx 1.673691'
+      },
+      {
+        title: 'Bước 5: Làm tròn 4 chữ số thập phân',
+        content: 'Làm tròn đến 4 chữ số thập phân ta được:',
+        math: 'x_3 \\approx 1.6737'
+      }
+    ],
+    tip: 'Chú ý: $x_2 = 1.7273$ chính là đáp án A (bẫy tính thiếu 1 bước). Đề bài yêu cầu $x_3$ (third approximation), do đó phải lặp 2 lần từ $x_1$.',
+    formula: 'x_{n+1} = x_n - \\frac{f(x_n)}{f\'(x_n)}'
+  },
+  {
+    id: 14,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Giá trị trung bình của hàm số (Average Value)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the average value of the function $f(x) = 6x - 1$ on the interval $[2, 4]$.',
+    questionVi: 'Tìm giá trị trung bình của hàm số $f(x) = 6x - 1$ trên đoạn $[2, 4]$.',
+    options: [
+      { id: 'A', text: '$16$' },
+      { id: 'B', text: '$17$' },
+      { id: 'C', text: '$34$' },
+      { id: 'D', text: '$23$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: '$f_{\\text{avg}} = \\frac{1}{b - a} \\int_a^b f(x)dx = \\frac{1}{4 - 2} \\int_2^4 (6x - 1) dx = \\frac{1}{2} [3x^2 - x]_2^4 = \\frac{1}{2} (44 - 10) = \\frac{34}{2} = 17$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Công thức giá trị trung bình',
+        content: 'Giá trị trung bình của hàm $f(x)$ liên tục trên đoạn $[a, b]$ được tính bởi:',
+        math: 'f_{\\text{avg}} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx'
+      },
+      {
+        title: 'Bước 2: Thay $a = 2, b = 4$',
+        content: 'Hệ số phía trước tích phân là:',
+        math: '\\frac{1}{4 - 2} = \\frac{1}{2}'
+      },
+      {
+        title: 'Bước 3: Tính tích phân xác định',
+        content: 'Tìm nguyên hàm và thế cận:',
+        math: '\\int_2^4 (6x - 1) \\, dx = \\left[ 3x^2 - x \\right]_2^4 = (3 \\cdot 16 - 4) - (3 \\cdot 4 - 2) = 44 - 10 = 34'
+      },
+      {
+        title: 'Bước 4: Tính kết quả cuối cùng',
+        content: 'Nhân với hệ số $\\frac{1}{2}$:',
+        math: 'f_{\\text{avg}} = \\frac{34}{2} = 17'
+      }
+    ],
+    tip: 'Vì $f(x) = 6x - 1$ là hàm bậc nhất (đoạn thẳng), giá trị trung bình chính là giá trị tại trung điểm $x = \\frac{2+4}{2} = 3$: $f(3) = 6(3) - 1 = 17$. Nhẩm chỉ mất 3 giây!',
+    formula: 'f_{\\text{avg}} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx'
+  },
+  {
+    id: 15,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tổng Riemann và Định nghĩa tích phân (Riemann Sum to Definite Integral)',
+    difficulty: 'Trung bình',
+    questionEn: 'Express the limit as a definite integral: $\\lim_{n \\to \\infty} \\frac{2}{n} \\sum_{i=1}^n \\left[ \\left(\\frac{2i}{n}\\right)^3 + \\frac{4i}{n} \\right]$.',
+    questionVi: 'Biểu diễn giới hạn sau dưới dạng một tích phân xác định: $\\lim_{n \\to \\infty} \\frac{2}{n} \\sum_{i=1}^n \\left[ \\left(\\frac{2i}{n}\\right)^3 + \\frac{4i}{n} \\right]$.',
+    options: [
+      { id: 'A', text: '$\\int_0^2 (x^3 + 4x)\\,dx$' },
+      { id: 'B', text: '$\\int_0^1 (x^3 + 2x)\\,dx$' },
+      { id: 'C', text: '$\\int_0^2 (x^3 + x)\\,dx$' },
+      { id: 'D', text: '$\\int_0^2 (x^3 + 2x)\\,dx$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: 'Đặt khoảng $[0, 2]$, độ dài đoạn con $\\Delta x = \\frac{2-0}{n} = \\frac{2}{n}$. Điểm chia $x_i = 0 + i \\Delta x = \\frac{2i}{n}$. Khi đó $\\frac{4i}{n} = 2 \\cdot \\left(\\frac{2i}{n}\\right) = 2x_i$. Biểu thức trở thành $\\int_0^2 (x^3 + 2x)\\,dx$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Nhớ lại định nghĩa tích phân theo tổng Riemann',
+        content: 'Định nghĩa tích phân Riemann trên $[a, b]$:',
+        math: '\\int_a^b f(x)\\,dx = \\lim_{n \\to \\infty} \\sum_{i=1}^n f(x_i) \\Delta x \\quad \\text{với } \\Delta x = \\frac{b-a}{n}, \\, x_i = a + i\\Delta x'
+      },
+      {
+        title: 'Bước 2: Xác định cận tích phân và biến đổi $x_i$',
+        content: 'Ở đây hệ số bên ngoài là $\\frac{2}{n}$, chọn $\\Delta x = \\frac{2}{n}$.\nChọn $a = 0 \\implies b - a = 2 \\implies b = 2$.\nĐiểm mẫu chuẩn: $x_i = a + i \\Delta x = \\frac{2i}{n}$.'
+      },
+      {
+        title: 'Bước 3: Phân tích biểu thức bên trong tổng theo $x_i$',
+        content: 'Biểu thức bên trong là $\\left(\\frac{2i}{n}\\right)^3 + \\frac{4i}{n}$.\nTa có $\\frac{2i}{n} = x_i$, và $\\frac{4i}{n} = 2 \\cdot \\left(\\frac{2i}{n}\\right) = 2x_i$.\nDo đó:',
+        math: 'f(x_i) = x_i^3 + 2x_i'
+      },
+      {
+        title: 'Bước 4: Viết lại thành tích phân xác định',
+        content: 'Chuyển về tích phân với cận từ $0$ đến $2$:',
+        math: '\\int_0^2 (x^3 + 2x) \\, dx'
+      }
+    ],
+    tip: 'Tránh bẫy đáp án A: số hạng $\\frac{4i}{n}$ là $2 \\cdot (\\frac{2i}{n}) = 2x$, chứ không phải $4x$. Vì vậy hàm số là $x^3 + 2x$.',
+    formula: '\\lim_{n \\to \\infty} \\frac{b-a}{n} \\sum_{i=1}^n f\\left(a + i\\frac{b-a}{n}\\right) = \\int_a^b f(x)\\,dx'
+  },
+  {
+    id: 16,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Định lý cơ bản giải tích & Đạo hàm cấp 2 (FTC Part 1 & Chain Rule)',
+    difficulty: 'Trung bình',
+    questionEn: 'Find $g\'\'(1)$ with $g(x) = \\int_0^{x^3} (1 + t^2)\\,dt$.',
+    questionVi: 'Tìm đạo hàm cấp hai $g\'\'(1)$ biết $g(x) = \\int_0^{x^3} (1 + t^2)\\,dt$.',
+    options: [
+      { id: 'A', text: '$30$' },
+      { id: 'B', text: '$6$' },
+      { id: 'C', text: '$24$' },
+      { id: 'D', text: '$33$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Áp dụng định lý cơ bản giải tích và quy tắc chuỗi: $g\'(x) = (1 + (x^3)^2) \\cdot (x^3)\' = (1 + x^6) \\cdot 3x^2 = 3x^2 + 3x^8$. Đạo hàm tiếp: $g\'\'(x) = 6x + 24x^7$. Tại $x = 1$: $g\'\'(1) = 6(1) + 24(1) = 30$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tính đạo hàm cấp 1 $g\'(x)$ bằng công thức Leibniz',
+        content: 'Theo định lý cơ bản của giải tích và quy tắc chuỗi, nếu $g(x) = \\int_0^{u(x)} f(t)\\,dt$ thì $g\'(x) = f(u(x)) \\cdot u\'(x)$:',
+        math: 'g\'(x) = (1 + (x^3)^2) \\cdot \\frac{d}{dx}(x^3) = (1 + x^6)(3x^2)'
+      },
+      {
+        title: 'Bước 2: Khai triển $g\'(x)$',
+        content: 'Nhân đa thức:',
+        math: 'g\'(x) = 3x^2 + 3x^8'
+      },
+      {
+        title: 'Bước 3: Lấy đạo hàm tiếp để tìm $g\'\'(x)$',
+        content: 'Đạo hàm cấp hai:',
+        math: 'g\'\'(x) = \\frac{d}{dx}(3x^2 + 3x^8) = 6x + 24x^7'
+      },
+      {
+        title: 'Bước 4: Thay $x = 1$',
+        content: 'Tính giá trị tại $x = 1$:',
+        math: 'g\'\'(1) = 6(1) + 24(1)^7 = 6 + 24 = 30'
+      }
+    ],
+    tip: 'Nhớ nhân với đạo hàm của cận trên $(x^3)\' = 3x^2$. Nếu quên nhân $3x^2$ sẽ ra kết quả sai hoàn toàn.',
+    formula: '\\frac{d}{dx} \\left[ \\int_a^{u(x)} f(t)\\,dt \\right] = f(u(x)) \\cdot u\'(x)'
+  },
+  {
+    id: 17,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Quy tắc hình thang (Trapezoidal Rule)',
+    difficulty: 'Dễ',
+    questionEn: 'Use the Trapezoidal Rule with $n = 6$ steps to approximate the integral $\\int_2^5 f(x)\\,dx$, given the table:\n' +
+      '| x | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 |\n' +
+      '|---|---|---|---|---|---|---|---|\n' +
+      '| f(x) | 3 | 1 | 4 | 2 | 6 | 3 | 5 |',
+    questionVi: 'Sử dụng quy tắc hình thang với $n = 6$ bước để xấp xỉ tích phân $\\int_2^5 f(x)\\,dx$ dựa vào bảng giá trị đã cho.',
+    options: [
+      { id: 'A', text: '$20$' },
+      { id: 'B', text: '$9.5$' },
+      { id: 'C', text: '$10$' },
+      { id: 'D', text: '$11$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: '$\\Delta x = \\frac{5 - 2}{6} = 0.5$. Công thức: $T_6 = \\frac{\\Delta x}{2} [y_0 + 2(y_1 + y_2 + y_3 + y_4 + y_5) + y_6] = \\frac{0.5}{2} [3 + 2(1 + 4 + 2 + 6 + 3) + 5] = 0.25 [3 + 32 + 5] = 0.25 \\times 40 = 10$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tính bước nhảy $\\Delta x$',
+        content: 'Đoạn lấy tích phân $[a, b] = [2, 5]$ chia làm $n = 6$ khoảng:',
+        math: '\\Delta x = \\frac{b - a}{n} = \\frac{5 - 2}{6} = \\frac{3}{6} = 0.5'
+      },
+      {
+        title: 'Bước 2: Viết công thức quy tắc hình thang',
+        content: 'Quy tắc hình thang với $n=6$ điểm chia:',
+        math: 'T_6 = \\frac{\\Delta x}{2} \\left[ f(x_0) + 2f(x_1) + 2f(x_2) + 2f(x_3) + 2f(x_4) + 2f(x_5) + f(x_6) \\right]'
+      },
+      {
+        title: 'Bước 3: Thay các giá trị $f(x)$ từ bảng',
+        content: 'Tử các điểm: $y_0 = 3, y_1 = 1, y_2 = 4, y_3 = 2, y_4 = 6, y_5 = 3, y_6 = 5$:\nTổng trong ngoặc = $3 + 2(1 + 4 + 2 + 6 + 3) + 5$:\n$= 3 + 2(16) + 5 = 3 + 32 + 5 = 40$'
+      },
+      {
+        title: 'Bước 4: Nhân với $\\frac{\\Delta x}{2}$',
+        content: 'Thực hiện phép tính:',
+        math: 'T_6 = \\frac{0.5}{2} \\times 40 = 0.25 \\times 40 = 10'
+      }
+    ],
+    tip: 'Công thức hình thang: hai đầu mút hệ số là 1, tất cả các điểm ở giữa nhân hệ số 2. Sau đó nhớ nhân với $\\frac{\\Delta x}{2}$, đừng quên chia 2!',
+    formula: 'T_n = \\frac{\\Delta x}{2} [y_0 + 2(y_1 + \\dots + y_{n-1}) + y_n]'
+  },
+  {
+    id: 18,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tích phân phương pháp đổi biến (Integration by Substitution)',
+    difficulty: 'Dễ',
+    questionEn: 'Evaluate $\\int_0^2 \\frac{2x + 3}{x^2 + 3x + 1}\\,dx$.',
+    questionVi: 'Tính tích phân xác định $\\int_0^2 \\frac{2x + 3}{x^2 + 3x + 1}\\,dx$.',
+    options: [
+      { id: 'A', text: '$\\ln(1/11)$' },
+      { id: 'B', text: '$\\ln 11$' },
+      { id: 'C', text: '$2\\ln 11$' },
+      { id: 'D', text: '$\\ln 12$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: 'Nhận thấy tử số chính là đạo hàm của mẫu số: $(x^2 + 3x + 1)\' = 2x + 3$. Đặt $u = x^2 + 3x + 1 \\implies du = (2x + 3)dx$. Khi $x=0 \\implies u=1$; khi $x=2 \\implies u=11$. Tích phân trở thành $\\int_1^{11} \\frac{du}{u} = [\\ln |u|]_1^{11} = \\ln 11 - \\ln 1 = \\ln 11$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Nhận diện dạng $\\int \\frac{u\'}{u}\\,dx$',
+        content: 'Xét mẫu số $u = x^2 + 3x + 1$. Ta có đạo hàm:',
+        math: 'du = (2x + 3)\\,dx'
+      },
+      {
+        title: 'Bước 2: Đổi cận',
+        content: '- Khi $x = 0 \\implies u = 0^2 + 3(0) + 1 = 1$\n- Khi $x = 2 \\implies u = 2^2 + 3(2) + 1 = 4 + 6 + 1 = 11$'
+      },
+      {
+        title: 'Bước 3: Tính tích phân theo biến $u$',
+        content: 'Biến đổi tích phân:',
+        math: '\\int_1^{11} \\frac{1}{u}\\,du = \\left[ \\ln|u| \\right]_1^{11}'
+      },
+      {
+        title: 'Bước 4: Thay cận và tính kết quả',
+        content: 'Vì $\\ln 1 = 0$:',
+        math: '\\ln 11 - \\ln 1 = \\ln 11 - 0 = \\ln 11'
+      }
+    ],
+    tip: 'Bất cứ khi nào gặp $\\int \\frac{f\'(x)}{f(x)}\\,dx$, kết quả nguyên hàm luôn là $\\ln|f(x)| + C$.',
+    formula: '\\int \\frac{f\'(x)}{f(x)}\\,dx = \\ln|f(x)| + C'
+  },
+  {
+    id: 19,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Vật lý / Chuyển động và Đạo hàm (Motion & Stopping Distance)',
+    difficulty: 'Dễ',
+    questionEn: 'The driver of a car traveling at $60\\text{ ft/sec}$ suddenly applies the brakes. The position of the car is $s = 60t - 5t^2$, $t$ seconds after the driver applies the brakes. How far does the car go before coming to a stop?',
+    questionVi: 'Một tài xế lái ô tô đang chạy với tốc độ $60\\text{ ft/s}$ thì đạp phanh. Quãng đường ô tô đi được là $s = 60t - 5t^2$ ($t$ là số giây sau khi đạp phanh). Ô tô đi được quãng đường bao xa trước khi dừng hẳn?',
+    options: [
+      { id: 'A', text: '$180\\text{ ft}$' },
+      { id: 'B', text: '$360\\text{ ft}$' },
+      { id: 'C', text: '$90\\text{ ft}$' },
+      { id: 'D', text: '$6\\text{ ft}$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Ô tô dừng hẳn khi vận tốc $v(t) = s\'(t) = 0 \\iff 60 - 10t = 0 \\iff t = 6\\text{ s}$. Quãng đường đi được khi đó là $s(6) = 60(6) - 5(6^2) = 360 - 180 = 180\\text{ ft}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tìm biểu thức vận tốc $v(t)$',
+        content: 'Vận tốc là đạo hàm của phương trình chuyển động:',
+        math: 'v(t) = s\'(t) = \\frac{d}{dt}(60t - 5t^2) = 60 - 10t'
+      },
+      {
+        title: 'Bước 2: Tìm thời điểm xe dừng hẳn',
+        content: 'Xe dừng hẳn khi vận tốc bằng 0:',
+        math: 'v(t) = 0 \\iff 60 - 10t = 0 \\iff 10t = 60 \\iff t = 6\\text{ giây}'
+      },
+      {
+        title: 'Bước 3: Tính quãng đường xe đã đi được đến khi dừng',
+        content: 'Thay $t = 6$ vào hàm vị trí $s(t)$:',
+        math: 's(6) = 60(6) - 5(6)^2 = 360 - 5(36) = 360 - 180 = 180\\text{ ft}'
+      }
+    ],
+    tip: 'Chú ý tránh chọn D ($6\\text{ ft}$): $6$ là thời gian dừng tính bằng giây ($t=6$), đề bài hỏi quãng đường ($s$) nên phải thay ngược lại vào phương trình vị trí.',
+    formula: 'v(t) = s\'(t) = 0 \\implies t_{\\text{stop}}, \\quad s_{\\text{stop}} = s(t_{\\text{stop}})'
+  },
+  {
+    id: 20,
+    page: 2,
+    topic: 'Vi tích phân (Calculus)',
+    subtopic: 'Tích phân từng phần (Integration by Parts)',
+    difficulty: 'Trung bình',
+    questionEn: 'A particle moving along a straight line has a velocity of $v(t) = 2te^t$ after $t$ seconds. How far does it travel from $t = 0$ to $t = 1$?',
+    questionVi: 'Một chất điểm chuyển động trên đường thẳng có vận tốc $v(t) = 2te^t$ sau $t$ giây. Quãng đường chất điểm đi được từ $t = 0$ đến $t = 1$ là bao nhiêu?',
+    options: [
+      { id: 'A', text: '$2e$' },
+      { id: 'B', text: '$2e - 2$' },
+      { id: 'C', text: '$e + 1$' },
+      { id: 'D', text: '$2$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: 'Quãng đường $s = \\int_0^1 2te^t\\,dt$. Dùng tích phân từng phần: đặt $u = 2t, dv = e^t dt \\implies du = 2dt, v = e^t$. $\\int 2te^t dt = 2te^t - 2e^t = 2e^t(t-1)$. Thay cận từ $0$ đến $1$: $2e(0) - 2(1)(-1) = 0 - (-2) = 2$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Thiết lập tích phân tính quãng đường',
+        content: 'Vì $v(t) = 2te^t \\ge 0$ với mọi $t \\in [0, 1]$, quãng đường di chuyển bằng tích phân vận tốc:',
+        math: 's = \\int_0^1 2t e^t \\, dt'
+      },
+      {
+        title: 'Bước 2: Áp dụng phương pháp tích phân từng phần',
+        content: 'Đặt $u$ và $dv$ theo quy tắc:\n- $u = 2t \\implies du = 2\\,dt$\n- $dv = e^t\\,dt \\implies v = e^t$',
+        math: '\\int u\\,dv = uv - \\int v\\,du'
+      },
+      {
+        title: 'Bước 3: Tính nguyên hàm',
+        content: 'Thay vào công thức từng phần:',
+        math: '\\int 2t e^t \\, dt = 2t e^t - \\int 2 e^t \\, dt = 2t e^t - 2e^t = 2e^t(t - 1)'
+      },
+      {
+        title: 'Bước 4: Thay cận từ $0$ đến $1$',
+        content: 'Tính giá trị tại hai cận:',
+        math: '\\left[ 2e^t(t - 1) \\right]_0^1 = \\left[ 2e^1(1 - 1) \\right] - \\left[ 2e^0(0 - 1) \\right] = 0 - (2 \\cdot 1 \\cdot (-1)) = 2'
+      }
+    ],
+    tip: 'Phương pháp múa cột (DI method):\n- Cột D (đạo hàm): $2t \\to 2 \\to 0$\n- Cột I (nguyên hàm): $e^t \\to e^t \\to e^t$\nNhân chéo: $+2te^t - 2e^t$. Rất nhanh và không sợ nhầm dấu!',
+    formula: '\\int_a^b u\\,dv = [uv]_a^b - \\int_a^b v\\,du'
+  },
+
+  // --- TRANG 3: CÂU 21 -> CÂU 30 ---
+  {
+    id: 21,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Hệ phương trình tuyến tính (System of Linear Equations)',
+    difficulty: 'Dễ',
+    questionEn: 'John and Joe earn a total of $\\$81$ when John works $4$ hours and Joe works $3$ hours. If John works $2$ hours and Joe works $5$ hours, they get $\\$79$. Find John\'s hourly rate (in dollars).',
+    questionVi: 'John và Joe kiếm được tổng cộng 81 USD khi John làm 4 giờ và Joe làm 3 giờ. Nếu John làm 2 giờ và Joe làm 5 giờ, họ nhận được 79 USD. Tìm mức lương theo giờ của John (USD/giờ).',
+    options: [
+      { id: 'A', text: '$11$' },
+      { id: 'B', text: '$12$' },
+      { id: 'C', text: '$10$' },
+      { id: 'D', text: '$13$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: 'Gọi mức lương của John là $x$, Joe là $y$. Ta có hệ: $\\begin{cases} 4x + 3y = 81 \\\\ 2x + 5y = 79 \\end{cases}$. Nhân PT (2) với 2 rồi trừ PT (1): $(4x+10y) - (4x+3y) = 158 - 81 \\implies 7y = 77 \\implies y = 11$. Thế vào (2): $2x = 79 - 55 = 24 \\implies x = 12$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Gọi ẩn và đặt điều kiện',
+        content: 'Gọi mức lương theo giờ của John là $x$ (USD/giờ) và của Joe là $y$ (USD/giờ) ($x, y > 0$).'
+      },
+      {
+        title: 'Bước 2: Lập hệ phương trình tuyến tính',
+        content: 'Từ giả thiết bài toán:',
+        math: '\\begin{cases} 4x + 3y = 81 \\quad (1) \\\\ 2x + 5y = 79 \\quad (2) \\end{cases}'
+      },
+      {
+        title: 'Bước 3: Giải hệ phương trình',
+        content: 'Nhân cả 2 vế của phương trình (2) với 2:',
+        math: '4x + 10y = 158 \\quad (3)'
+      },
+      {
+        title: 'Bước 4: Trừ phương trình (3) cho phương trình (1)',
+        content: 'Khử $x$ để tìm $y$:',
+        math: '(4x + 10y) - (4x + 3y) = 158 - 81 \\implies 7y = 77 \\implies y = 11'
+      },
+      {
+        title: 'Bước 5: Tìm mức lương $x$ của John',
+        content: 'Thay $y = 11$ vào phương trình (2):',
+        math: '2x + 5(11) = 79 \\iff 2x + 55 = 79 \\iff 2x = 24 \\iff x = 12'
+      }
+    ],
+    tip: 'Bấm máy tính Casio hệ 2 ẩn (Mode 5 1 hoặc Menu 9 1 2) với các hệ số: [4, 3, 81] và [2, 5, 79], máy ra ngay $x = 12, y = 11$. Đề bài hỏi John ($x$) nên kết quả là 12.',
+    formula: 'ax + by = c_1, \\quad dx + ey = c_2'
+  },
+  {
+    id: 22,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Phương trình ma trận (Matrix Operations & Algebra)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the matrix $A$ if $3A - \\begin{bmatrix} 5 & 2 \\\\ 1 & 4 \\end{bmatrix} = A - \\begin{bmatrix} 1 & 4 \\\\ 3 & 2 \\end{bmatrix}$.',
+    questionVi: 'Tìm ma trận $A$ thỏa mãn phương trình: $3A - \\begin{bmatrix} 5 & 2 \\\\ 1 & 4 \\end{bmatrix} = A - \\begin{bmatrix} 1 & 4 \\\\ 3 & 2 \\end{bmatrix}$.',
+    options: [
+      { id: 'A', text: '$\\begin{bmatrix} -2 & 1 \\\\ 1 & -1 \\end{bmatrix}$' },
+      { id: 'B', text: '$\\begin{bmatrix} 4 & -2 \\\\ -2 & 2 \\end{bmatrix}$' },
+      { id: 'C', text: '$\\begin{bmatrix} 2 & -1 \\\\ -1 & 1 \\end{bmatrix}$' },
+      { id: 'D', text: '$\\begin{bmatrix} 2 & 1 \\\\ -1 & 1 \\end{bmatrix}$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Chuyển vế: $3A - A = \\begin{bmatrix} 5 & 2 \\\\ 1 & 4 \\end{bmatrix} - \\begin{bmatrix} 1 & 4 \\\\ 3 & 2 \\end{bmatrix} \\implies 2A = \\begin{bmatrix} 4 & -2 \\\\ -2 & 2 \\end{bmatrix} \\implies A = \\frac{1}{2}\\begin{bmatrix} 4 & -2 \\\\ -2 & 2 \\end{bmatrix} = \\begin{bmatrix} 2 & -1 \\\\ -1 & 1 \\end{bmatrix}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Chuyển vế đưa $A$ về cùng một vế',
+        content: 'Chuyển $A$ sang vế trái và ma trận sang vế phải:',
+        math: '3A - A = \\begin{bmatrix} 5 & 2 \\\\ 1 & 4 \\end{bmatrix} - \\begin{bmatrix} 1 & 4 \\\\ 3 & 2 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 2: Rút gọn vế trái và tính hiệu hai ma trận ở vế phải',
+        content: 'Trừ từng phần tử tương ứng của hai ma trận:',
+        math: '2A = \\begin{bmatrix} 5 - 1 & 2 - 4 \\\\ 1 - 3 & 4 - 2 \\end{bmatrix} = \\begin{bmatrix} 4 & -2 \\\\ -2 & 2 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 3: Chia cả hai vế cho vô hướng 2',
+        content: 'Nhân cả ma trận với $\\frac{1}{2}$:',
+        math: 'A = \\frac{1}{2} \\begin{bmatrix} 4 & -2 \\\\ -2 & 2 \\end{bmatrix} = \\begin{bmatrix} 2 & -1 \\\\ -1 & 1 \\end{bmatrix}'
+      }
+    ],
+    tip: 'Đáp án B chính là ma trận $2A$. Rất nhiều bạn quên chia 2 ở bước cuối cùng mà chọn nhầm B.',
+    formula: 'cA = B \\implies A = \\frac{1}{c} B'
+  },
+  {
+    id: 23,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Tính chất định thức ma trận (Properties of Determinants)',
+    difficulty: 'Trung bình',
+    questionEn: 'Let $A = \\begin{bmatrix} 2 & 1 & 0 \\\\ 1 & 3 & 1 \\\\ 0 & 1 & 2 \\end{bmatrix}$. Find $\\det(2A^{-1})$.',
+    questionVi: 'Cho ma trận $A = \\begin{bmatrix} 2 & 1 & 0 \\\\ 1 & 3 & 1 \\\\ 0 & 1 & 2 \\end{bmatrix}$. Tính $\\det(2A^{-1})$.',
+    options: [
+      { id: 'A', text: '$1$' },
+      { id: 'B', text: '$1/4$' },
+      { id: 'C', text: '$16$' },
+      { id: 'D', text: '$2$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Tính $\\det(A) = 2(6 - 1) - 1(2 - 0) + 0 = 10 - 2 = 8$. Vì $A$ vuông cấp $n = 3$, theo tính chất định thức: $\\det(2A^{-1}) = 2^3 \\det(A^{-1}) = 8 \\cdot \\frac{1}{\\det(A)} = 8 \\cdot \\frac{1}{8} = 1$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tính định thức của ma trận $A$ cấp $3 \\times 3$',
+        content: 'Khai triển theo dòng 1:',
+        math: '\\det(A) = 2 \\begin{vmatrix} 3 & 1 \\\\ 1 & 2 \\end{vmatrix} - 1 \\begin{vmatrix} 1 & 1 \\\\ 0 & 2 \\end{vmatrix} + 0'
+      },
+      {
+        title: 'Bước 2: Tính giá trị các định thức con',
+        content: '- $\\begin{vmatrix} 3 & 1 \\\\ 1 & 2 \\end{vmatrix} = 3(2) - 1(1) = 6 - 1 = 5$\n- $\\begin{vmatrix} 1 & 1 \\\\ 0 & 2 \\end{vmatrix} = 1(2) - 0(1) = 2$\n',
+        math: '\\det(A) = 2(5) - 1(2) = 10 - 2 = 8'
+      },
+      {
+        title: 'Bước 3: Áp dụng các tính chất định thức',
+        content: 'Với ma trận vuông cấp $n$ và số thực $k$:\n1. $\\det(kM) = k^n \\det(M)$\n2. $\\det(A^{-1}) = \\frac{1}{\\det(A)}$\nỞ đây $n = 3$ (kích thước $3 \\times 3$) và $k = 2$:',
+        math: '\\det(2A^{-1}) = 2^3 \\cdot \\det(A^{-1}) = 8 \\cdot \\frac{1}{\\det(A)}'
+      },
+      {
+        title: 'Bước 4: Thay $\\det(A) = 8$',
+        content: 'Tính kết quả:',
+        math: '\\det(2A^{-1}) = 8 \\cdot \\frac{1}{8} = 1'
+      }
+    ],
+    tip: 'Đặc biệt chú ý: Số vô hướng đưa ra ngoài định thức phải lũy thừa cấp $n$: $\\det(kA) = k^n \\det(A)$, vì ma trận có cấp 3 nên là $2^3 = 8$, không phải $2$.',
+    formula: '\\det(k A^{-1}) = k^n \\cdot \\frac{1}{\\det(A)}'
+  },
+  {
+    id: 24,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Hạng của ma trận (Rank of a Matrix)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the rank of the matrix $\\begin{bmatrix} 1 & -1 & 2 \\\\ 3 & 1 & 0 \\\\ 4 & 0 & 2 \\end{bmatrix}$.',
+    questionVi: 'Tìm hạng (rank) của ma trận $\\begin{bmatrix} 1 & -1 & 2 \\\\ 3 & 1 & 0 \\\\ 4 & 0 & 2 \\end{bmatrix}$.',
+    options: [
+      { id: 'A', text: '$1$' },
+      { id: 'B', text: '$3$' },
+      { id: 'C', text: '$0$' },
+      { id: 'D', text: '$2$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: 'Biến đổi sơ cấp theo dòng: $R_2 \\to R_2 - 3R_1 = [0, 4, -6]$, $R_3 \\to R_3 - 4R_1 = [0, 4, -6]$. Khi đó $R_3 - R_2 = [0, 0, 0]$. Ma trận bậc thang có 2 dòng khác không $\\implies \\text{rank} = 2$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Ma trận ban đầu',
+        content: 'Ta thực hiện phép khử Gauss đưa ma trận về dạng bậc thang:',
+        math: 'M = \\begin{bmatrix} 1 & -1 & 2 \\\\ 3 & 1 & 0 \\\\ 4 & 0 & 2 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 2: Khử các phần tử ở cột 1',
+        content: 'Thực hiện hai phép biến đổi dòng sơ cấp:\n- $R_2 \\leftarrow R_2 - 3R_1$\n- $R_3 \\leftarrow R_3 - 4R_1$',
+        math: '\\begin{bmatrix} 1 & -1 & 2 \\\\ 0 & 1 - 3(-1) & 0 - 3(2) \\\\ 0 & 0 - 4(-1) & 2 - 4(2) \\end{bmatrix} = \\begin{bmatrix} 1 & -1 & 2 \\\\ 0 & 4 & -6 \\\\ 0 & 4 & -6 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 3: Khử dòng 3',
+        content: 'Thực hiện phép biến đổi $R_3 \\leftarrow R_3 - R_2$:',
+        math: '\\begin{bmatrix} 1 & -1 & 2 \\\\ 0 & 4 & -6 \\\\ 0 & 0 & 0 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 4: Xác định hạng',
+        content: 'Số dòng khác không trong ma trận dạng bậc thang là 2 dòng (dòng 1 và dòng 2). Do đó hạng của ma trận là:',
+        math: '\\text{rank}(M) = 2'
+      }
+    ],
+    tip: 'Nhìn nhanh: Dòng 3 bằng Dòng 1 + Dòng 2: $(1+3, -1+1, 2+0) = (4, 0, 2)$. Do đó 3 dòng phụ thuộc tuyến tính, định thức bằng 0 $\\implies$ rank < 3. Vì dòng 1 và 2 không tỷ lệ nên rank = 2.',
+    formula: '\\text{rank}(A) = \\text{Số dòng khác không ở dạng bậc thang}'
+  },
+  {
+    id: 25,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Số chiều của không gian nghiệm (Dimension of Solution Space / Nullity)',
+    difficulty: 'Trung bình',
+    questionEn: 'What is the dimension of the solution space of the following system of equations?\n$x - y + 2z = 0$, $2x + y - z = 0$, $3x + z = 0$.',
+    questionVi: 'Số chiều của không gian nghiệm của hệ phương trình thuần nhất sau bằng bao nhiêu?\n$x - y + 2z = 0$, $2x + y - z = 0$, $3x + z = 0$.',
+    options: [
+      { id: 'A', text: '$0$' },
+      { id: 'B', text: '$2$' },
+      { id: 'C', text: '$1$' },
+      { id: 'D', text: '$3$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Hệ 3 ẩn số $n = 3$. Ma trận hệ số có dòng $3 = \\text{dòng } 1 + \\text{dòng } 2$ nên phụ thuộc tuyến tính, 2 dòng đầu độc lập tuyến tính $\\implies \\text{rank}(A) = 2$. Số chiều không gian nghiệm $= n - \\text{rank}(A) = 3 - 2 = 1$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Viết ma trận hệ số $A$',
+        content: 'Hệ phương trình thuần nhất $Ax = 0$ có ma trận hệ số:',
+        math: 'A = \\begin{bmatrix} 1 & -1 & 2 \\\\ 2 & 1 & -1 \\\\ 3 & 0 & 1 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 2: Tìm hạng $\\text{rank}(A)$',
+        content: 'Biến đổi dòng:\n- $R_2 \\to R_2 - 2R_1 = [0, 3, -5]$\n- $R_3 \\to R_3 - 3R_1 = [0, 3, -5]$\n- $R_3 \\to R_3 - R_2 = [0, 0, 0]$',
+        math: '\\begin{bmatrix} 1 & -1 & 2 \\\\ 0 & 3 & -5 \\\\ 0 & 0 & 0 \\end{bmatrix} \\implies \\text{rank}(A) = 2'
+      },
+      {
+        title: 'Bước 3: Áp dụng định lý về số chiều (Rank-Nullity Theorem)',
+        content: 'Số chiều không gian nghiệm (Nullity) của hệ thuần nhất $n$ biến là:',
+        math: '\\dim(\\text{Null}(A)) = n - \\text{rank}(A)'
+      },
+      {
+        title: 'Bước 4: Tính toán kết quả',
+        content: 'Với số ẩn $n = 3$ và $\\text{rank}(A) = 2$:',
+        math: '\\dim = 3 - 2 = 1'
+      }
+    ],
+    tip: 'Công thức vàng cần nhớ: Số ẩn tự do = Số chiều không gian nghiệm = Số ẩn ($n$) - Hạng ($r$).',
+    formula: '\\dim(\\text{Null}(A)) = n - \\text{rank}(A)'
+  },
+  {
+    id: 26,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Khoảng cách từ một điểm đến mặt phẳng (Distance Point to Plane)',
+    difficulty: 'Dễ',
+    questionEn: 'Find the distance from the point $(1, 3, -2)$ to the plane $2x - y + 2z = 1$.',
+    questionVi: 'Tìm khoảng cách từ điểm $(1, 3, -2)$ đến mặt phẳng $2x - y + 2z = 1$.',
+    options: [
+      { id: 'A', text: '$2$' },
+      { id: 'B', text: '$6$' },
+      { id: 'C', text: '$2/3$' },
+      { id: 'D', text: '$4/3$' }
+    ],
+    correctAnswer: 'A',
+    shortSolution: 'Chuyển PT mặt phẳng về dạng $2x - y + 2z - 1 = 0$. $d = \\frac{|2(1) - 1(3) + 2(-2) - 1|}{\\sqrt{2^2 + (-1)^2 + 2^2}} = \\frac{|2 - 3 - 4 - 1|}{\\sqrt{4 + 1 + 4}} = \\frac{|-6|}{\\sqrt{9}} = \\frac{6}{3} = 2$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Đưa phương trình mặt phẳng về dạng chuẩn tổng quát',
+        content: 'Phương trình mặt phẳng $Ax + By + Cz + D = 0$:',
+        math: '2x - y + 2z - 1 = 0 \\implies A = 2, B = -1, C = 2, D = -1'
+      },
+      {
+        title: 'Bước 2: Nhắc lại công thức khoảng cách từ điểm $M(x_0, y_0, z_0)$ đến mặt phẳng',
+        content: 'Công thức khoảng cách chuẩn:',
+        math: 'd = \\frac{|A x_0 + B y_0 + C z_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}'
+      },
+      {
+        title: 'Bước 3: Thay tọa độ điểm $(x_0, y_0, z_0) = (1, 3, -2)$',
+        content: 'Tính giá trị ở tử số (độ lệch):',
+        math: '|2(1) - 1(3) + 2(-2) - 1| = |2 - 3 - 4 - 1| = |-6| = 6'
+      },
+      {
+        title: 'Bước 4: Tính mẫu số (độ dài vector pháp tuyến)',
+        content: 'Tính độ dài của vector $\\vec{n} = (2, -1, 2)$:',
+        math: '\\sqrt{2^2 + (-1)^2 + 2^2} = \\sqrt{4 + 1 + 4} = \\sqrt{9} = 3'
+      },
+      {
+        title: 'Bước 5: Kết luận khoảng cách',
+        content: 'Chia tử cho mẫu:',
+        math: 'd = \\frac{6}{3} = 2'
+      }
+    ],
+    tip: 'Nhớ chuyển số hạng tự do sang cùng một vế: $2x - y + 2z - 1 = 0$ để có $D = -1$. Nếu quên chuyển vế sẽ tính sai tử số thành $|-4| = 4 \\implies 4/3$ (bẫy đáp án D).',
+    formula: 'd = \\frac{|Ax_0 + By_0 + Cz_0 + D|}{\\sqrt{A^2 + B^2 + C^2}}'
+  },
+  {
+    id: 27,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Hình chiếu trực giao của vector (Orthogonal Projection)',
+    difficulty: 'Dễ',
+    questionEn: 'If $u = (4, -1, 3)$ and $v = (1, 1, 1)$, then the projection of $u$ along $v$ is:',
+    questionVi: 'Nếu $u = (4, -1, 3)$ và $v = (1, 1, 1)$, thì hình chiếu vuông góc của $u$ lên $v$ là:',
+    options: [
+      { id: 'A', text: '$(4, -1, 3)$' },
+      { id: 'B', text: '$(2, 2, 2)$' },
+      { id: 'C', text: '$(6, 6, 6)$' },
+      { id: 'D', text: '$(\\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3})$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: '$\\text{proj}_v u = \\frac{u \\cdot v}{\\|v\\|^2} v = \\frac{4(1) + (-1)(1) + 3(1)}{1^2 + 1^2 + 1^2} (1, 1, 1) = \\frac{6}{3} (1, 1, 1) = 2(1, 1, 1) = (2, 2, 2)$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Công thức hình chiếu của $u$ lên $v$',
+        content: 'Hình chiếu trực giao (projection) của vector $u$ lên vector $v$ được xác định bởi công thức:',
+        math: '\\text{proj}_v u = \\left( \\frac{u \\cdot v}{\\|v\\|^2} \\right) v'
+      },
+      {
+        title: 'Bước 2: Tính tích vô hướng $u \\cdot v$',
+        content: 'Nhân các tọa độ tương ứng rồi cộng lại:',
+        math: 'u \\cdot v = 4(1) + (-1)(1) + 3(1) = 4 - 1 + 3 = 6'
+      },
+      {
+        title: 'Bước 3: Tính bình phương độ dài của $v$',
+        content: 'Độ dài bình phương:',
+        math: '\\|v\\|^2 = 1^2 + 1^2 + 1^2 = 3'
+      },
+      {
+        title: 'Bước 4: Tính hệ số tỷ lệ vô hướng',
+        content: 'Tỷ số giữa tích vô hướng và độ dài bình phương:',
+        math: 'c = \\frac{u \\cdot v}{\\|v\\|^2} = \\frac{6}{3} = 2'
+      },
+      {
+        title: 'Bước 5: Nhân hệ số với vector $v$',
+        content: 'Hình chiếu là:',
+        math: '\\text{proj}_v u = 2(1, 1, 1) = (2, 2, 2)'
+      }
+    ],
+    tip: 'Hình chiếu lên vector $v$ luôn cùng phương với $v$. Nhìn các đáp án: B, C, D đều có dạng $k(1, 1, 1)$. Hệ số $k = \\frac{u \\cdot v}{v \\cdot v} = \\frac{6}{3} = 2 \\implies (2, 2, 2)$.',
+    formula: '\\text{proj}_v u = \\frac{u \\cdot v}{\\|v\\|^2} v'
+  },
+  {
+    id: 28,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Vector riêng và Giá trị riêng (Eigenvectors & Eigenvalues)',
+    difficulty: 'Trung bình',
+    questionEn: 'Given $A = \\begin{bmatrix} 4 & 1 & 1 \\\\ 1 & 4 & 1 \\\\ 1 & 1 & 4 \\end{bmatrix}$, $u = [1, 1, 1]^T$ and $v = [1, 0, 1]^T$. Choose the correct statement.',
+    questionVi: 'Cho ma trận $A = \\begin{bmatrix} 4 & 1 & 1 \\\\ 1 & 4 & 1 \\\\ 1 & 1 & 4 \\end{bmatrix}$, $u = [1, 1, 1]^T$ và $v = [1, 0, 1]^T$. Chọn khẳng định đúng.',
+    options: [
+      { id: 'A', text: 'Both $u$ and $v$ are eigenvectors of $A$' },
+      { id: 'B', text: 'Only $v$ is an eigenvector of $A$' },
+      { id: 'C', text: 'Neither $u$ nor $v$ is an eigenvector of $A$' },
+      { id: 'D', text: 'Only $u$ is an eigenvector of $A$' }
+    ],
+    correctAnswer: 'D',
+    shortSolution: 'Tính $A u = [6, 6, 6]^T = 6 u \\implies u$ là eigenvector ứng với $\\lambda = 6$. Tính $A v = [5, 2, 5]^T \\ne k [1, 0, 1]^T$ (vì thành phần thứ 2 là 2 khác 0) $\\implies v$ không phải eigenvector. Vậy chỉ có $u$ là eigenvector.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Định nghĩa vector riêng (Eigenvector)',
+        content: 'Một vector khác không $x$ là vector riêng của ma trận vuông $A$ nếu tồn tại số vô hướng $\\lambda$ sao cho:',
+        math: 'A x = \\lambda x'
+      },
+      {
+        title: 'Bước 2: Kiểm tra với vector $u = [1, 1, 1]^T$',
+        content: 'Nhân ma trận $A$ với vector $u$:',
+        math: 'A u = \\begin{bmatrix} 4 & 1 & 1 \\\\ 1 & 4 & 1 \\\\ 1 & 1 & 4 \\end{bmatrix} \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 4(1) + 1(1) + 1(1) \\\\ 1(1) + 4(1) + 1(1) \\\\ 1(1) + 1(1) + 4(1) \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ 6 \\\\ 6 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 3: Đánh giá $A u$',
+        content: 'Ta thấy $\\begin{bmatrix} 6 \\\\ 6 \\\\ 6 \\end{bmatrix} = 6 \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\end{bmatrix} = 6 u$. Do đó $u$ là vector riêng với giá trị riêng $\\lambda = 6$.'
+      },
+      {
+        title: 'Bước 4: Kiểm tra với vector $v = [1, 0, 1]^T$',
+        content: 'Nhân ma trận $A$ với vector $v$:',
+        math: 'A v = \\begin{bmatrix} 4 & 1 & 1 \\\\ 1 & 4 & 1 \\\\ 1 & 1 & 4 \\end{bmatrix} \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 4(1) + 1(0) + 1(1) \\\\ 1(1) + 4(0) + 1(1) \\\\ 1(1) + 1(0) + 4(1) \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ 2 \\\\ 5 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 5: Đánh giá $A v$',
+        content: 'Để $[5, 2, 5]^T = \\lambda [1, 0, 1]^T$ thì phải có: $\\lambda(1) = 5$ và $\\lambda(0) = 2$ (vô lý vì $0 \\ne 2$). Do đó không tồn tại $\\lambda$, tức $v$ KHÔNG PHẢI là vector riêng của $A$.'
+      },
+      {
+        title: 'Bước 6: Kết luận',
+        content: 'Chỉ có $u$ là vector riêng của $A$ (Only $u$ is an eigenvector of $A$).'
+      }
+    ],
+    tip: 'Quy tắc cực nhanh: Một vector chỉ có thể là eigenvector nếu $Av$ cùng phương với $v$. Nhìn vector $v$ có phần tử giữa bằng 0, nhưng khi nhân ra $Av$ thì phần tử giữa là 2, nên lập tức loại $v$.',
+    formula: 'A x = \\lambda x \\quad (x \\ne 0)'
+  },
+  {
+    id: 29,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Hệ phương trình xác định đa thức nội suy (Polynomial Curve Fitting)',
+    difficulty: 'Dễ',
+    questionEn: 'Find $b$ such that the graph of $y = a + bx + cx^2$ passes through $(0, 2)$, $(1, 5)$, $(2, 12)$.',
+    questionVi: 'Tìm hệ số $b$ để đồ thị hàm số $y = a + bx + cx^2$ đi qua ba điểm $(0, 2)$, $(1, 5)$ và $(2, 12)$.',
+    options: [
+      { id: 'A', text: '$-1$' },
+      { id: 'B', text: '$2$' },
+      { id: 'C', text: '$1$' },
+      { id: 'D', text: '$3$' }
+    ],
+    correctAnswer: 'C',
+    shortSolution: 'Thay $(0,2) \\implies a = 2$. Thay $(1,5) \\implies 2 + b + c = 5 \\implies b + c = 3$. Thay $(2,12) \\implies 2 + 2b + 4c = 12 \\implies b + 2c = 5$. Lấy $(b+2c) - (b+c) = 5 - 3 \\implies c = 2 \\implies b = 3 - 2 = 1$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Thay điểm thứ nhất $(0, 2)$',
+        content: 'Điểm $(0, 2)$ thuộc đồ thị khi:',
+        math: 'a + b(0) + c(0)^2 = 2 \\implies a = 2'
+      },
+      {
+        title: 'Bước 2: Thay điểm thứ hai $(1, 5)$',
+        content: 'Với $a = 2$, thay $x = 1, y = 5$:',
+        math: '2 + b(1) + c(1)^2 = 5 \\iff b + c = 3 \\quad (1)'
+      },
+      {
+        title: 'Bước 3: Thay điểm thứ ba $(2, 12)$',
+        content: 'Thay $x = 2, y = 12$:',
+        math: '2 + b(2) + c(2^2) = 12 \\iff 2 + 2b + 4c = 12 \\iff 2b + 4c = 10 \\iff b + 2c = 5 \\quad (2)'
+      },
+      {
+        title: 'Bước 4: Giải hệ hai ẩn $b, c$',
+        content: 'Lấy phương trình (2) trừ phương trình (1):',
+        math: '(b + 2c) - (b + c) = 5 - 3 \\implies c = 2'
+      },
+      {
+        title: 'Bước 5: Tìm giá trị của $b$',
+        content: 'Thế $c = 2$ vào phương trình (1):',
+        math: 'b = 3 - c = 3 - 2 = 1'
+      }
+    ],
+    tip: 'Kiểm tra lại hàm số hoàn chỉnh: $y = 2 + x + 2x^2$. Tại $x=0: y=2$; tại $x=1: y=2+1+2=5$; tại $x=2: y=2+2+8=12$. Khớp 100%!',
+    formula: 'y_i = a + b x_i + c x_i^2'
+  },
+  {
+    id: 30,
+    page: 3,
+    topic: 'Đại số tuyến tính (Linear Algebra)',
+    subtopic: 'Phép hợp biến đổi tuyến tính (Composition of Linear Transformations)',
+    difficulty: 'Trung bình',
+    questionEn: 'Let $T : \\mathbb{R}^2 \\to \\mathbb{R}^2$ be the matrix transformation induced by $A = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix}$ and $S : \\mathbb{R}^2 \\to \\mathbb{R}^2$ be the matrix transformation induced by $B = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}$. Find $(T \\circ S)\\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}$.',
+    questionVi: 'Cho ánh xạ tuyến tính $T : \\mathbb{R}^2 \\to \\mathbb{R}^2$ xác định bởi ma trận $A = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix}$ và $S : \\mathbb{R}^2 \\to \\mathbb{R}^2$ xác định bởi ma trận $B = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}$. Tính $(T \\circ S)\\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}$.',
+    options: [
+      { id: 'A', text: '$\\begin{bmatrix} 5 \\\\ 12 \\end{bmatrix}$' },
+      { id: 'B', text: '$\\begin{bmatrix} 12 \\\\ 5 \\end{bmatrix}$' },
+      { id: 'C', text: '$\\begin{bmatrix} 4 \\\\ 5 \\end{bmatrix}$' },
+      { id: 'D', text: '$\\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix}$' }
+    ],
+    correctAnswer: 'B',
+    shortSolution: '$(T \\circ S)(v) = T(S(v)) = A \\cdot (B v)$. Đầu tiên tính $w = B v = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix} \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix}$. Sau đó tính $A w = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix} \\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix} = \\begin{bmatrix} 2 + 10 \\\\ 0 + 5 \\end{bmatrix} = \\begin{bmatrix} 12 \\\\ 5 \\end{bmatrix}$.',
+    detailedSteps: [
+      {
+        title: 'Bước 1: Tính chất của phép hợp ánh xạ ma trận',
+        content: 'Theo định nghĩa, $(T \\circ S)(v) = T(S(v))$. Vì $T$ ứng với ma trận $A$ và $S$ ứng với ma trận $B$, ta có:',
+        math: '(T \\circ S)(v) = A \\cdot (B \\cdot v) = (AB) v'
+      },
+      {
+        title: 'Bước 2: Tính $S(v) = B \\cdot v$ trước',
+        content: 'Nhân ma trận $B$ với vector cột $v = \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}$:',
+        math: 'S(v) = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix} \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 1(2) + 0(1) \\\\ 2(2) + 1(1) \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix}'
+      },
+      {
+        title: 'Bước 3: Tác động ánh xạ $T$ lên kết quả vừa tìm',
+        content: 'Nhân ma trận $A$ với vector $\\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix}$:',
+        math: 'T(S(v)) = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix} \\begin{bmatrix} 2 \\\\ 5 \\end{bmatrix} = \\begin{bmatrix} 1(2) + 2(5) \\\\ 0(2) + 1(5) \\end{bmatrix} = \\begin{bmatrix} 2 + 10 \\\\ 0 + 5 \\end{bmatrix} = \\begin{bmatrix} 12 \\\\ 5 \\end{bmatrix}'
+      },
+      {
+        title: 'Cách 2: Nhân hai ma trận trước $M = AB$',
+        content: 'Ta có ma trận biểu diễn phép hợp:\n$$AB = \\begin{bmatrix} 1 & 2 \\\\ 0 & 1 \\end{bmatrix} \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix} = \\begin{bmatrix} 1(1)+2(2) & 1(0)+2(1) \\\\ 0(1)+1(2) & 0(0)+1(1) \\end{bmatrix} = \\begin{bmatrix} 5 & 2 \\\\ 2 & 1 \\end{bmatrix}$$\nKhi đó $(AB)v = \\begin{bmatrix} 5 & 2 \\\\ 2 & 1 \\end{bmatrix} \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 5(2)+2(1) \\\\ 2(2)+1(1) \\end{bmatrix} = \\begin{bmatrix} 12 \\\\ 5 \\end{bmatrix}$.'
+      }
+    ],
+    tip: 'Chú ý thứ tự: $(T \\circ S)(v) = A(Bv)$, thực hiện $S$ trước rồi mới đến $T$. Nếu làm ngược $(S \\circ T)(v) = B(Av)$ sẽ ra đáp án sai.',
+    formula: '[T \\circ S] = [T] [S] = A B'
+  }
+];
